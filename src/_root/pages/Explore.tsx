@@ -104,7 +104,7 @@ const Explore = () => {
           <SearchResults
             isSearchFetching={isSearchFetching}
             searchedPosts={
-              searchedPosts ?? { documents: [] }
+              searchedPosts as unknown as SearchResultProps["searchedPosts"]
             }
           />
         ) : shouldShowPosts ? (

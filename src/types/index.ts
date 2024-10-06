@@ -19,6 +19,9 @@ export type INavLink = {
     file: File[];
     location?: string;
     tags?: string;
+    imageUrl?: string;
+    imageId?: string;
+    creator?: string;
   };
   
   export type IUpdatePost = {
@@ -29,6 +32,8 @@ export type INavLink = {
     file: File[];
     location?: string;
     tags?: string;
+    creator?: string;
+    userId: string;
   };
   
   export type IUser = {

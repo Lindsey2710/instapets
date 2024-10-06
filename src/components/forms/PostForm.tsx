@@ -55,9 +55,15 @@ const PostForm = ({ post, action }: PostFormProps) => {
     if (post && action === "Update") {
       const updatedPost = await updatePost({
         ...value,
+        file: [],
+        caption: value.caption,
+        userId: user.id,
         postId: post.$id,
-        imageId: post.imageId,
-        imageUrl: post.imageUrl,
+        imageUrl: post?.imageUrl || "",
+        tags: value.tags.split(",").join(" "),
+        location: value.location || "",
+        imageId: post?.imageId || "",
+        creator: user.name || "",
       });
 
       if (!updatedPost) {
@@ -71,7 +77,14 @@ const PostForm = ({ post, action }: PostFormProps) => {
     // ACTION = CREATE
     const newPost = await createPost({
       ...value,
+      file: [],
+      caption: value.caption,
       userId: user.id,
+      imageUrl: post?.imageUrl || "",
+      tags: value.tags.split(",").join(" "),
+      location: value.location || "",
+      imageId: post?.imageId || "",
+      creator: user.name || "",
     });
 
     if (!newPost) {
