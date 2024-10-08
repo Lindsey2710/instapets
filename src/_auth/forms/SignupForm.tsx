@@ -27,7 +27,7 @@ import { useToast } from "@/components/ui/use-toast";
 const SignupForm = () => {
   const { toast } = useToast();
   const navigate = useNavigate();
-  const { checkAuthUser, isLoading: isUserLoading } = useUserContext();
+  const { isLoading: isUserLoading } = useUserContext();
 
   const form = useForm<z.infer<typeof SignupValidation>>({
     resolver: zodResolver(SignupValidation),
@@ -57,7 +57,6 @@ const SignupForm = () => {
 
       if (!newUser) {
         toast({ title: "Sign up failed. Please try again." });
-
         return;
       }
 
@@ -68,23 +67,11 @@ const SignupForm = () => {
 
       if (!session) {
         toast({ title: "Something went wrong. Please login your new account" });
-
         navigate("/sign-in");
-
         return;
       }
-
-      const isLoggedIn = await checkAuthUser();
-
-      if (isLoggedIn) {
         form.reset();
-
         navigate("/");
-      } else {
-        toast({ title: "Login failed. Please try again." });
-
-        return;
-      }
     } catch (error) {
       console.log({ error });
     }
