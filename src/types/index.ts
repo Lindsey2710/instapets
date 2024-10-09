@@ -16,11 +16,11 @@ export type INavLink = {
   export type INewPost = {
     userId: string;
     caption: string;
-    file: File[];
+    imageUrl: URL;
+    imageId: string;
     location?: string;
     tags?: string;
-    imageUrl?: string;
-    imageId?: string;
+    file: File[];
     creator?: string;
   };
   
