@@ -53,8 +53,10 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
           bio: currentAccount.bio,
         });
         setIsAuthenticated(true);
+
         return true;
       }
+
       return false;
     } catch (error) {
       console.error(error);
@@ -63,26 +65,20 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       setIsLoading(false);
     }
   };
-  
-   useEffect(() => {
+
+  useEffect(() => {
     const cookieFallback = localStorage.getItem("cookieFallback");
     if (
       cookieFallback === "[]" ||
       cookieFallback === null ||
-      cookieFallback === undefined &&
-      !isAuthenticated
+      cookieFallback === undefined
     ) {
-      if (window.location.pathname !== "/sign-up") {
-        
-        navigate("/sign-in");
-        checkAuthUser();
-      } 
-    } else {
-      setIsAuthenticated(true);
+      navigate("/sign-in");
     }
-  }, [navigate, isAuthenticated]);
 
-  
+    checkAuthUser();
+  }, []);
+
   const value = {
     user,
     setUser,
