@@ -13,7 +13,6 @@ import {
   FormMessage,
   Button,
   Input,
-
 } from "@/components/ui";
 import { PostValidation } from "@/lib/validation";
 import { useToast } from "@/components/ui/use-toast";
@@ -74,17 +73,12 @@ const PostForm = ({ post, action }: PostFormProps) => {
       return navigate(`/posts/${post.$id}`);
     }
 
-    // ACTION = CREATE
     const newPost = await createPost({
-      ...value,
-      file: [],
-      caption: value.caption,
       userId: user.id,
-      imageUrl: post?.imageUrl || "",
-      tags: value.tags.split(",").join(" "),
-      location: value.location || "",
-      imageId: post?.imageId || "",
-      creator: user.name || "",
+  caption: value.caption,
+  file: value.file,
+  location: value.location,
+  tags: value.tags,
     });
 
     if (!newPost) {
@@ -94,12 +88,12 @@ const PostForm = ({ post, action }: PostFormProps) => {
     }
     navigate("/");
   };
-
   return (
     <Form {...form}>
       <form
         onSubmit={form.handleSubmit(handleSubmit)}
-        className="flex flex-col gap-9 w-full  max-w-5xl">
+        className="flex flex-col gap-9 w-full  max-w-5xl"
+      >
         <FormField
           control={form.control}
           name="caption"
@@ -173,13 +167,15 @@ const PostForm = ({ post, action }: PostFormProps) => {
           <Button
             type="button"
             className="shad-button_dark_4"
-            onClick={() => navigate(-1)}>
+            onClick={() => navigate(-1)}
+          >
             Cancel
           </Button>
           <Button
             type="submit"
             className="shad-button_primary whitespace-nowrap"
-            disabled={isLoadingCreate || isLoadingUpdate}>
+            disabled={isLoadingCreate || isLoadingUpdate}
+          >
             {(isLoadingCreate || isLoadingUpdate) && <Loader />}
             {action} Post
           </Button>

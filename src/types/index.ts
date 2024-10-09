@@ -16,12 +16,9 @@ export type INavLink = {
   export type INewPost = {
     userId: string;
     caption: string;
-    imageUrl: URL;
-    imageId: string;
+    file: File[];
     location?: string;
     tags?: string;
-    file: File[];
-    creator?: string;
   };
   
   export type IUpdatePost = {
